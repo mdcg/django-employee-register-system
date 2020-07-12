@@ -1,0 +1,37 @@
+{% extends 'system/base.html' %}
+{% load static %}
+{% block content %}
+{% include "system/menu.html" %}
+{% include "system/alerts.html" %}
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="text-center">
+            Listagem dos Funcionários
+        </h1>
+    </div>
+</div>
+{% if not employee_list %}
+<div class="row">
+    <div class="col-md-12">
+        <h6 class="text-center">
+            Nenhum funcionário cadastrado até o momento.
+        </h6>
+    </div>
+</div>
+{% endif %}
+{% for employee in employee_list %}
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{employee.first_name}} {{employee.last_name}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{employee.role}}</h6>
+                <a href="#" class="card-link">{{employee.username}}</a>
+                <a href="#" class="card-link">{{employee.email}}</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% include "system/footer.html" %}
+{% endblock %}

@@ -9,7 +9,7 @@ from django.views import View
 from system.forms.user_forms import UserForm
 
 
-class RegisterEmployeeView(View):
+class EmployeeRegisterView(View):
     @method_decorator(login_required)
     def get(self, request):
         user_form = UserForm()
