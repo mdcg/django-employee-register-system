@@ -1,5 +1,6 @@
 from django.urls import path
+from system.views.authentication_views import AuthenticationView
 
 urlpatterns = [
-    # path('', Example.as_view(), name='example'),
+    path('', AuthenticationView.as_view(), name='authentication'),
 ]
