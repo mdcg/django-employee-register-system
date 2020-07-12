@@ -1,0 +1,43 @@
+{% extends 'system/base.html' %}
+{% load static %}
+{% block content %}
+{% include "system/menu.html" %}
+{% include "system/alerts.html" %}
+{% include "system/register_errors.html" %}
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="text-center">
+            Registrar Funcionário
+        </h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>Nome:</label>
+                {{form.first_name}}
+            </div>
+            <div class="form-group">
+                <label>Sobrenome:</label>
+                {{form.last_name}}
+            </div>
+            <div class="form-group">
+                <label>E-mail:</label>
+                {{form.email}}
+            </div>
+            <div class="form-group">
+                <label>Usuário:</label>
+                {{form.username}}
+            </div>
+            <div class="form-group">
+                <label>Senha:</label>
+                {{form.password}}
+            </div>
+            <button type="submit" class="btn btn-dark btn-block"><i class="fa fa-plus"></i> Cadastrar</button>
+        </form>
+    </div>
+</div>
+{% include "system/footer.html" %}
+{% endblock %}
