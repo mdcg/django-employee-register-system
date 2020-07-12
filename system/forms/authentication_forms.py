@@ -5,16 +5,9 @@ from django.forms import EmailInput, ModelForm, PasswordInput, TextInput
 class AuthForm(ModelForm):
     class Meta:
         model = User
-        fields = [
-            'username',
-            'password'
-        ]
+        fields = ["username", "password"]
 
         widgets = {
-            'username': TextInput(attrs={
-                "class": "form-control"
-            }),
-            'password': PasswordInput(attrs={
-                "class": "form-control"
-            }),
+            "username": TextInput(attrs={"class": "form-control"}),
+            "password": PasswordInput(attrs={"class": "form-control"}),
         }

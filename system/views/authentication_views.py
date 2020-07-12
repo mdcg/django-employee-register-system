@@ -1,4 +1,3 @@
- 
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -31,10 +30,10 @@ class AuthenticationView(View):
 
             if user is not None:
                 login(request, user)
-                messages.success(request, f'Bem-vindo, {user.first_name}!')
-                return redirect('home')
+                messages.success(request, f"Bem-vindo, {user.first_name}!")
+                return redirect("home")
 
-            messages.warning(request, 'Não foi possível realizar o login.')
+            messages.warning(request, "Não foi possível realizar o login.")
 
             context = {
                 "form": auth_form,
@@ -47,5 +46,5 @@ class AuthenticationView(View):
 class LogoutView(View):
     def get(self, request):
         if request.user.is_authenticated:
-           logout(request)
+            logout(request)
         return redirect("authentication")

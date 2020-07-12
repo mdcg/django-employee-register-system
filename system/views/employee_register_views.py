@@ -1,4 +1,3 @@
- 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -24,9 +23,8 @@ class RegisterEmployeeView(View):
         user_form = UserForm(request.POST)
         if user_form.is_valid():
             user = user_form.save()
-            messages.success(request, 'Funcionário cadastrado com sucesso!')
+            messages.success(request, "Funcionário cadastrado com sucesso!")
             return redirect("employee-register")
-
 
         context = {
             "form": user_form,
