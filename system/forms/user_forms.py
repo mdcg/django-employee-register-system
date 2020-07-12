@@ -1,5 +1,6 @@
-from system.models import Employee
 from django.forms import EmailInput, ModelForm, PasswordInput, TextInput
+
+from system.models import Employee
 
 
 class UserForm(ModelForm):
