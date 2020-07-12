@@ -1,51 +1,51 @@
  
-import secrets
-
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import redirect, render
 from django.views import View
 
-# from core.forms import UserForm
-# from core.models import ConfirmationToken
-
-# from .tasks import send_confirmation_email
+from system.forms.authentication_forms import AuthForm
 
 
 class AuthenticationView(View):
     def get(self, request):
-        # user_form = UserForm()
-        context = {
-            # "form": user_form,
-        }
-        return render(request, "system/authentication.html", context)
+        if not request.user.is_authenticated:
+            auth_form = AuthForm()
+            context = {
+                "form": auth_form,
+            }
+            return render(request, "system/authentication.html", context)
 
-    # def post(self, request):
-    #     user_form = UserForm(request.POST)
+        return redirect("home")
 
-    #     if user_form.is_valid():
-    #         user = user_form.save()
-    #         confirmation_token = ConfirmationToken.objects.create(
-    #             user=user,
-    #             confirmation_key=secrets.token_hex(16)
-    #         )
+    def post(self, request):
+        if not request.user.is_authenticated:
+            auth_form = AuthForm(request.POST)
 
-    #         # Empilhando a task
-    #         send_confirmation_email.delay(
-    #             confirmation_token.confirmation_key,
-    #             user.id,
-    #             user.email,
-    #         )
+            username = auth_form.data.get("username")
+            password = auth_form.data.get("password")
 
-    #         messages.success(request, 'Usuário cadastrado com sucesso.')
+            user = authenticate(username=username, password=password)
 
-    #         return redirect('registration')
+            if user is not None:
+                login(request, user)
+                messages.success(request, f'Bem-vindo, {user.first_name}!')
+                return redirect('home')
 
-    #     messages.warning(
-    #         request, 'Verifique todos os dados antes de prosseguir.')
+            messages.warning(request, 'Não foi possível realizar o login.')
 
-    #     context = {
-    #         "form": user_form,
-    #     }
-    #     return render(request, "core/registration.html", context)
+            context = {
+                "form": auth_form,
+            }
+            return render(request, "system/authentication.html", context)
+
+        return redirect("home")
+
+
+class LogoutView(View):
+    def get(self, request):
+        if request.user.is_authenticated:
+           logout(request)
+        return redirect("authentication")

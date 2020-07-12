@@ -8,32 +8,17 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/all.min.css' %}">
-    <title>Registry</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
+    <title>Registro Maravilhoso</title>
 </head>
 
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-sm-6 col-xs-6">
-                <!-- Mensagens de erro! -->
-                {% if messages %}
-                {% for message in messages %}
-                <div class="alert alert-{{ message.tags }} alert-dismissible fade in" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-                    </button>
-                    {{message}}
-                </div>
-                {% endfor %}
-                {% endif %}
-            </div>
-        </div>
-
-        <!-- Content here -->
+    <div class="container-fluid">
         {% block content %}
         {% endblock %}
     </div>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="{% static 'system/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
 </body>
 
 </html>
