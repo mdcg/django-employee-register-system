@@ -1,0 +1,29 @@
+version: '2.2'
+
+services:
+  db:
+    image: postgres:9-alpine
+    restart: always
+    env_file:
+      - ./config/.env
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+  reflected_dev:
+    build: .
+    stdin_open: true
+    tty: true
+    env_file:
+      - ./config/.env
+    command: >
+      sh -c "python --version
+      && sleep 10
+      && python manage.py makemigrations
+      && python manage.py makemigrations api
+      && python manage.py migrate
+      && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
