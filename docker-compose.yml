@@ -8,7 +8,7 @@ services:
       - ./config/.env
     volumes:
       - ./pgdata:/var/lib/postgresql/data
-  reflected_dev:
+  dev:
     build: .
     stdin_open: true
     tty: true
